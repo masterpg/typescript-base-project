@@ -1,4 +1,4 @@
-# flow-base-project
+# typescript-base-project
 
 ## 環境構築
 
@@ -23,7 +23,7 @@ $ yarn install
 $ gulp serve
 ```
 
-起動したらブラウザで`http://localhost:5000/`にアクセスすることで画面が表示されます。
+起動したらブラウザで http://localhost:5000/ にアクセスすることで画面が表示されます。
 
 
 ## プロジェクトビルド
@@ -40,5 +40,5 @@ $ gulp build
 $ gulp serve:prod
 ```
 
-起動したらブラウザで`http://localhost:5000/`にアクセスすることで画面が表示されます。
+起動したらブラウザで http://localhost:5000/ にアクセスすることで画面が表示されます。
 
