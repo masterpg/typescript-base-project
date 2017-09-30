@@ -39,7 +39,7 @@ gulp.task('flow', shell.task([
  * json-serverを起動します。
  */
 gulp.task('json-server', shell.task([
-  './node_modules/.bin/json-server --watch ./server/db.json --port 5001',
+  './node_modules/.bin/json-server --watch ./data/db.json --port 5001',
 ]));
 
 gulp.task('browser-sync', () => {
@@ -128,15 +128,6 @@ gulp.task('build-dev-resources', () => {
 //--------------------------------------------------
 
 /**
- * ビルド結果を検証するための開発サーバーを起動します。
- */
-gulp.task('serve:prod', () => {
-  return runSequence(
-    ['browser-sync', 'json-server']
-  );
-});
-
-/**
  * 公開ディレクトリ(本番環境用)の構築を行います。
  */
 gulp.task('build', () => {
@@ -145,6 +136,15 @@ gulp.task('build', () => {
     'webpack:prod',
     'build-prod-resources',
     'build-service-worker'
+  );
+});
+
+/**
+ * ビルド結果を検証するための開発サーバーを起動します。
+ */
+gulp.task('serve:build', () => {
+  return runSequence(
+    ['browser-sync', 'json-server']
   );
 });
 

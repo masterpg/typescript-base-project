@@ -37,7 +37,7 @@ $ gulp build
 ビルド結果を検証したい場合、次のコマンドでビルド結果の検証用サーバーを起動します。
 
 ```console
-$ gulp serve:prod
+$ gulp serve:build
 ```
 
 起動したらブラウザで http://localhost:5000/ にアクセスすることで画面が表示されます。
