@@ -1,7 +1,7 @@
 const gulp = require('gulp');
 const path = require('path');
 const del = require('del');
-const runSequence = require('run-sequence');
+const sequence = require('run-sequence');
 const merge = require('merge-stream');
 const vfs = require('vinyl-fs');
 const shell = require('gulp-shell');
@@ -21,6 +21,16 @@ const webpack = require('webpack');
  * Web公開ディレクトリです。
  */
 const PUBLIC_DIR = 'public';
+
+/**
+ * 環境定数(開発)です。
+ */
+const ENV_DEV = 'dev';
+
+/**
+ * 環境定数(本番)です。
+ */
+const ENV_PROD = 'prod';
 
 //----------------------------------------------------------------------
 //
@@ -67,14 +77,15 @@ gulp.task('clean', () => {
 /**
  * 開発サーバーを起動します。
  */
-gulp.task('serve', () => {
+gulp.task('serve', (done) => {
   // 変更監視処理
   gulp.watch(['src/**/*.js'], ['flow']);
 
-  return runSequence(
+  return sequence(
     'clean:dev',
     'build:dev',
-    ['browser-sync', 'json-server']
+    ['browser-sync', 'json-server'],
+    done
   );
 });
 
@@ -92,15 +103,15 @@ gulp.task('clean:dev', () => {
 /**
  * webpack(開発環境用)を実行します。
  */
-gulp.task('webpack:dev', () => {
-  return runWebpack('dev');
-});
+gulp.task('webpack:dev', shell.task([
+  `webpack --config ./webpack.config.${ENV_DEV}`
+]));
 
 /**
  * 公開ディレクトリ(開発環境用)の構築を行います。
  */
 gulp.task('build:dev', () => {
-  return runSequence(
+  return sequence(
     'build-dev-resources',
     'flow',
     'webpack:dev'
@@ -130,30 +141,32 @@ gulp.task('build-dev-resources', () => {
 /**
  * 公開ディレクトリ(本番環境用)の構築を行います。
  */
-gulp.task('build', () => {
-  return runSequence(
+gulp.task('build', (done) => {
+  return sequence(
     'clean',
     'webpack:prod',
     'build-prod-resources',
-    'build-service-worker'
+    'build-service-worker',
+    done
   );
 });
 
 /**
  * ビルド結果を検証するための開発サーバーを起動します。
  */
-gulp.task('serve:build', () => {
-  return runSequence(
-    ['browser-sync', 'json-server']
+gulp.task('serve:build', (done) => {
+  return sequence(
+    ['browser-sync', 'json-server'],
+    done
   );
 });
 
 /**
  * webpack(本番環境用)を実行します。
  */
-gulp.task('webpack:prod', () => {
-  return runWebpack('prod');
-});
+gulp.task('webpack:prod', shell.task([
+  `webpack --config ./webpack.config.${ENV_PROD}`
+]));
 
 /**
  * 公開ディレクトリに本番環境用のリソースを準備します。
@@ -177,20 +190,3 @@ gulp.task('build-prod-resources', () => {
 gulp.task('build-service-worker', shell.task([
   `cd ${PUBLIC_DIR} && sw-precache --config=../sw-precache-config.js`,
 ]));
-
-//----------------------------------------------------------------------
-//
-//  Methods
-//
-//----------------------------------------------------------------------
-
-/**
- * webpackを実行します。
- * @param mode "dev", "prod"のいずれかを指定します。
- */
-function runWebpack(mode) {
-  const config = _.cloneDeep(require(`./webpack.config.${mode}`));
-  const destPath = config.output.path;
-  return webpackStream(config, webpack)
-    .pipe(gulp.dest(destPath));
-}
