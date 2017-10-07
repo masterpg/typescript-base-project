@@ -20,8 +20,7 @@
     "vinyl-fs": "^2.4.4",
     "webpack": "^3.6.0",
     "webpack-dev-server": "^2.8.2",
-    "webpack-merge": "^4.1.0",
-    "webpack-stream": "^4.0.0"
+    "webpack-merge": "^4.1.0"
   },
   "scripts": {
     "lint": "npm run lint:javascript && polymer lint",

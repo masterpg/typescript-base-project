@@ -8,9 +8,6 @@ const shell = require('gulp-shell');
 const _ = require('lodash');
 const browserSync = require('browser-sync');
 
-const webpackStream = require('webpack-stream');
-const webpack = require('webpack');
-
 //----------------------------------------------------------------------
 //
 //  Constants
@@ -39,19 +36,22 @@ const ENV_PROD = 'prod';
 //----------------------------------------------------------------------
 
 /**
- * flowを実行します。
- */
-gulp.task('flow', shell.task([
-  './node_modules/.bin/flow'
-], {ignoreErrors: true}));
-
-/**
  * json-serverを起動します。
  */
 gulp.task('json-server', shell.task([
   './node_modules/.bin/json-server --watch ./data/db.json --port 5001',
 ]));
 
+/**
+ * webpack-dev-serverを起動します。
+ */
+gulp.task('webpack-dev-server', shell.task([
+  './node_modules/.bin/webpack-dev-server --config ./webpack.config.dev.js',
+]));
+
+/**
+ * browser-syncを起動します。
+ */
 gulp.task('browser-sync', () => {
   browserSync.init({
     port: 5000,
@@ -78,13 +78,10 @@ gulp.task('clean', () => {
  * 開発サーバーを起動します。
  */
 gulp.task('serve', (done) => {
-  // 変更監視処理
-  gulp.watch(['src/**/*.js'], ['flow']);
-
   return sequence(
     'clean:dev',
     'build:dev',
-    ['browser-sync', 'json-server'],
+    ['webpack-dev-server', 'json-server'],
     done
   );
 });
@@ -96,7 +93,7 @@ gulp.task('clean:dev', () => {
   return del([
     path.join(PUBLIC_DIR, '**/*'),
     path.join('!' + PUBLIC_DIR, 'images/**'),
-    path.join('!' + PUBLIC_DIR, 'app.bundle.*.js'),
+    path.join('!' + PUBLIC_DIR, 'app.bundle.js'),
   ]);
 });
 
@@ -113,7 +110,6 @@ gulp.task('webpack:dev', shell.task([
 gulp.task('build:dev', () => {
   return sequence(
     'build-dev-resources',
-    'flow',
     'webpack:dev'
   );
 });
