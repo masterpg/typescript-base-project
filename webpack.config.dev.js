@@ -5,7 +5,7 @@ const webpack = require('webpack');
 
 module.exports = merge(baseConfig, {
   output: {
-    filename: '[name].bundle.js'
+    filename: '[name].bundle.js',
   },
   devtool: 'inline-source-map',
   devServer: {

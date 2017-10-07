@@ -9,21 +9,21 @@ module.exports = {
     path: path.join(__dirname, 'public'),
   },
   resolve: {
-    extensions: ['.ts', '.js']
+    extensions: ['.ts', '.tsx', '.js']
   },
   module: {
     rules: [
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
+      },
       {
         test: /\.(html)$/,
         use: {
           loader: 'html-loader'
         }
       },
-      {
-        test: /\.ts?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/
-      }
     ]
   },
   plugins: [
