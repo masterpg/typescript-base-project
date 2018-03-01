@@ -6,7 +6,7 @@ module.exports = {
     'app': './src/my-app',
   },
   output: {
-    path: path.join(__dirname, 'public'),
+    path: path.join(process.cwd(), 'public'),
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js']

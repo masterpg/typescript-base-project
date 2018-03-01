@@ -72,7 +72,7 @@ gulp.task('json-server', shell.task([
  * webpack-dev-serverを起動します。
  */
 gulp.task('webpack-dev-server', shell.task([
-  './node_modules/.bin/webpack-dev-server --config ./webpack.config.dev.js',
+  'node_modules/.bin/webpack-dev-server --config webpack/webpack.config.dev.js',
 ]));
 
 /**
@@ -113,7 +113,7 @@ gulp.task('build', (done) => {
  * webpack(本番環境用)を実行します。
  */
 gulp.task('build:webpack:prod', shell.task([
-  `node_modules/.bin/webpack --config ./webpack.config.${ENV_PROD}`
+  `node_modules/.bin/webpack --config webpack/webpack.config.${ENV_PROD}`
 ]));
 
 /**
@@ -157,7 +157,7 @@ gulp.task('build:dev', () => {
  * webpack(開発環境用)を実行します。
  */
 gulp.task('build:webpack:dev', shell.task([
-  `node_modules/.bin/webpack --config ./webpack.config.${ENV_DEV}`
+  `node_modules/.bin/webpack --config webpack/webpack.config.${ENV_DEV}`
 ]));
 
 /**
