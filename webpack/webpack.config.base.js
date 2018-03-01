@@ -32,8 +32,11 @@ module.exports = {
     ]
   },
   plugins: [
+    // webpackでバンドルされたファイル(index.bundle.js等)のscriptタグを
+    // 指定したhtmlに自動で埋め込んでくれるプラグイン
     new HtmlWebpackPlugin({
-      template: './index.html',
+      filename: 'index.html',
+      template: 'src/index.html',
     }),
   ],
 };

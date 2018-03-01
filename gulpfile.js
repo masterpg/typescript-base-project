@@ -65,7 +65,7 @@ gulp.task('serve:prod', (done) => {
  * json-serverを起動します。
  */
 gulp.task('json-server', shell.task([
-  './node_modules/.bin/json-server --watch ./data/db.json --port 5001',
+  'node_modules/.bin/json-server --watch data/db.json --port 5001',
 ]));
 
 /**
@@ -121,7 +121,7 @@ gulp.task('build:webpack:prod', shell.task([
  */
 gulp.task('build:resources:prod', () => {
   const files = gulp.src([
-    'manifest.json',
+    'src/manifest.json',
   ]).pipe(gulp.dest(PUBLIC_DIR));
 
   const webcomponents = gulp.src(
@@ -136,7 +136,7 @@ gulp.task('build:resources:prod', () => {
  * service-worker.jsを生成します。
  */
 gulp.task('build:service-worker', shell.task([
-  `cd ${PUBLIC_DIR} && sw-precache --config=../sw-precache-config.js`,
+  `cd ${PUBLIC_DIR} && sw-precache --config=../src/sw-precache-config.js`,
 ]));
 
 //------------------------------
@@ -167,13 +167,17 @@ gulp.task('build:resources:dev', () => {
   // node_modulesのシンボリックリンクを作成
   const node = vfs.src('node_modules', { followSymlinks: false })
     .pipe(vfs.symlink(PUBLIC_DIR));
-  const manifest = vfs.src('manifest.json', { followSymlinks: false })
+  // imagesのシンボリックリンクを作成
+  const images = vfs.src('src/images', { followSymlinks: false })
+    .pipe(vfs.symlink(PUBLIC_DIR));
+  // manifest.jsonのシンボリックリンクを作成
+  const manifest = vfs.src('src/manifest.json', { followSymlinks: false })
     .pipe(vfs.symlink(PUBLIC_DIR));
   // service-worker.jsのシンボリックリンクを作成
-  const serviceWorker = vfs.src('service-worker.js', { followSymlinks: false })
+  const serviceWorker = vfs.src('src/service-worker.js', { followSymlinks: false })
     .pipe(vfs.symlink(PUBLIC_DIR));
 
-  return merge(node, manifest, serviceWorker);
+  return merge(node, images, manifest, serviceWorker);
 });
 
 //--------------------------------------------------
