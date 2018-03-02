@@ -49,7 +49,6 @@ const ENV_PROD = 'prod';
  */
 gulp.task('serve', (done) => {
   return sequence(
-    'clean:dev',
     'build:dev',
     ['webpack-dev-server', 'json-server'],
     done
@@ -158,6 +157,7 @@ gulp.task('build:service-worker', shell.task([
  */
 gulp.task('build:dev', () => {
   return sequence(
+    'clean:dev',
     'build:resources:dev',
     'build:webpack:dev'
   );
@@ -180,17 +180,13 @@ gulp.task('build:resources:dev', () => {
   // bower_componentsのシンボリックリンクを作成
   const bower = vfs.src('bower_components', { followSymlinks: false })
     .pipe(vfs.symlink(PUBLIC_DIR));
-  // imagesのシンボリックリンクを作成
-  const images = vfs.src('src/images', { followSymlinks: false })
-    .pipe(vfs.symlink(PUBLIC_DIR));
-  // manifest.jsonのシンボリックリンクを作成
   const manifest = vfs.src('src/manifest.json', { followSymlinks: false })
     .pipe(vfs.symlink(PUBLIC_DIR));
   // service-worker.jsのシンボリックリンクを作成
   const serviceWorker = vfs.src('src/service-worker.js', { followSymlinks: false })
     .pipe(vfs.symlink(PUBLIC_DIR));
 
-  return merge(node, bower, images, manifest, serviceWorker);
+  return merge(node, bower,  manifest, serviceWorker);
 });
 
 //--------------------------------------------------
@@ -201,7 +197,7 @@ gulp.task('build:resources:dev', () => {
  * プロジェクトをクリーンします。
  */
 gulp.task('clean', () => {
-  return del(['public']);
+  return del(['public', '.cache']);
 });
 
 /**
@@ -211,6 +207,6 @@ gulp.task('clean:dev', () => {
   return del([
     path.join(PUBLIC_DIR, '**/*'),
     path.join(`!${PUBLIC_DIR}`, 'images/**'),
-    path.join(`!${PUBLIC_DIR}`, 'app.bundle.js'),
+    path.join(`!${PUBLIC_DIR}`, 'index.bundle.js'),
   ]);
 });

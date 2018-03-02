@@ -1,6 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
 
 module.exports = {
   entry: {
@@ -39,6 +41,14 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'src/index.html',
+    }),
+    new CopyWebpackPlugin([{
+      from: path.join(process.cwd(), 'src/images'),
+      to: path.join(process.cwd(), 'public/images'),
+    }]),
+    new ImageminPlugin({
+      test: /images\/[^\.]+\.(jpe?g|png|gif|svg)$/i,
+      cacheFolder: '.cache'
     }),
   ],
 };
