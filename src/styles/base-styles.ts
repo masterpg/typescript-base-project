@@ -7,7 +7,7 @@ const $_documentContainer = document.createElement('div');
 $_documentContainer.setAttribute('style', 'display: none;');
 
 $_documentContainer.innerHTML = `
-  <dom-module id="shared-styles">
+  <dom-module id="base-styles">
     <template>
       <style include="iron-flex iron-flex-alignment iron-flex-reverse iron-flex-factors iron-positioning">
 

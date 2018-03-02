@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
-    'app': './src/my-app',
+    'index': `${process.cwd()}/src/index.ts`,
   },
   output: {
     path: path.join(process.cwd(), 'public'),

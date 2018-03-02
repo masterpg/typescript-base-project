@@ -1,14 +1,14 @@
 import '@polymer/polymer/polymer';
 import {Element as PolymerElement} from '@polymer/polymer/polymer-element';
 import '@polymer/paper-button/paper-button';
-import './shared-styles';
-import * as api from './api';
+import '../styles/base-styles';
+import * as api from '../api';
 
 export class MyApp extends PolymerElement {
 
   static get template() {
     return `
-      <style include="shared-styles">
+      <style include="base-styles">
         :host {
           display: block;
           margin: 10px;
