@@ -1,15 +1,17 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
   entry: {
-    'index': `${process.cwd()}/src/index.ts`,
+    'index': path.join(process.cwd(), '/src/index.ts'),
   },
   output: {
     path: path.join(process.cwd(), 'public'),
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.ts', '.tsx', '.js'],
+    plugins: [new TsconfigPathsPlugin({ configFile: path.join(process.cwd(), 'tsconfig.json') })],
   },
   module: {
     rules: [
@@ -21,7 +23,7 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
-        exclude: /node_modules/
+        exclude: [/node_modules/, /bower_components/],
       },
       {
         test: /\.(html)$/,

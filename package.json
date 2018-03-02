@@ -16,6 +16,7 @@
     "run-sequence": "^2.1.0",
     "sw-precache": "^5.2.0",
     "ts-loader": "^2.3.7",
+    "tsconfig-paths-webpack-plugin": "^2.0.0",
     "tslint": "^5.9.1",
     "tslint-loader": "^3.5.3",
     "typescript": "^2.5.3",
@@ -31,11 +32,11 @@
     "test:integration": "polymer build # test that psk builds without error with the CLI"
   },
   "dependencies": {
-    "@polymer/iron-flex-layout": "next",
-    "@polymer/paper-button": "next",
-    "@polymer/paper-styles": "next",
-    "@polymer/polymer": "next",
-    "@webcomponents/webcomponentsjs": "^1.0.13",
-    "axios": "^0.16.2"
+    "@polymer/iron-flex-layout": "3.0.0-pre.1",
+    "@polymer/paper-button": "3.0.0-pre.1",
+    "@polymer/paper-styles": "3.0.0-pre.1",
+    "@polymer/polymer": "^3.0.0-pre.10",
+    "@webcomponents/webcomponentsjs": "^1.1.0",
+    "axios": "^0.18.0"
   }
 }

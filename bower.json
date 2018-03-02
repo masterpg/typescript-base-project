@@ -1,0 +1,13 @@
+{
+  "name": "typescript-base-project",
+  "authors": [
+    "masterpg@livedeveloper.net"
+  ],
+  "license": "BSD-3-Clause",
+  "dependencies": {
+    "polymer-decorators": "1.2.0"
+  },
+  "devDependencies": {
+    "web-component-tester": "^6.5.0"
+  }
+}

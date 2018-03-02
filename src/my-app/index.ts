@@ -1,13 +1,18 @@
-import '@polymer/polymer/polymer';
-import {Element as PolymerElement} from '@polymer/polymer/polymer-element';
-import '@polymer/paper-button/paper-button';
-import '../styles/base-styles';
-import * as api from '../api';
+const { customElement, query } = Polymer.decorators;
 
-export class MyApp extends PolymerElement {
+import '../styles/base-styles';
+import '@polymer/paper-button/paper-button';
+import '@polymer/polymer/polymer';
+import * as api from '../api';
+import { Element as PolymerElement } from '@polymer/polymer/polymer-element';
+import { GestureEventListeners, GestureEventListenersConstructor } from '@polymer/polymer/lib/mixins/gesture-event-listeners';
+import { html } from '@polymer/polymer/lib/utils/html-tag';
+
+@customElement('my-app')
+export class MyApp extends GestureEventListeners(PolymerElement) {
 
   static get template() {
-    return `
+    return html`
       <style include="base-styles">
         :host {
           display: block;
@@ -31,7 +36,7 @@ export class MyApp extends PolymerElement {
           text-align: left;
           font-weight: normal;
         }
-        
+
         .posts thead th.id {
           width: 40px;
         }
@@ -39,7 +44,7 @@ export class MyApp extends PolymerElement {
         .posts thead th.title {
           width: 150px;
         }
-        
+
         .posts thead th.author {
           width: 150px;
         }
@@ -67,11 +72,29 @@ export class MyApp extends PolymerElement {
     `;
   }
 
+  //----------------------------------------------------------------------
+  //
+  //  Variables
+  //
+  //----------------------------------------------------------------------
+
+  __posts: api.Post[];
+
+  //----------------------------------------------------------------------
+  //
+  //  Lifecycle callbacks
+  //
+  //----------------------------------------------------------------------
+
   constructor() {
     super();
   }
 
-  __posts: api.Post[];
+  //----------------------------------------------------------------------
+  //
+  //  Event handlers
+  //
+  //----------------------------------------------------------------------
 
   async __buttonOnClick(e) {
     const posts = await api.getPosts();
@@ -81,5 +104,3 @@ export class MyApp extends PolymerElement {
     this.__posts = posts;
   }
 }
-
-customElements.define('my-app', MyApp);

@@ -9,7 +9,7 @@ module.exports = merge(baseConfig, {
   },
   devtool: 'inline-source-map',
   devServer: {
-    contentBase: path.join(__dirname, 'public'),
+    contentBase: path.join(process.cwd(), 'public'),
     hot: true,
     port: 5000,
   },

@@ -15,6 +15,11 @@ const browserSync = require('browser-sync');
 //----------------------------------------------------------------------
 
 /**
+ * srcディレクトリです。
+ */
+const SRC_DIR = 'src';
+
+/**
  * Web公開ディレクトリです。
  */
 const PUBLIC_DIR = 'public';
@@ -129,7 +134,12 @@ gulp.task('build:resources:prod', () => {
     { base: 'node_modules' }
   ).pipe(gulp.dest(path.join(PUBLIC_DIR, 'node_modules')));
 
-  return merge(files, webcomponents);
+  const polymerDecorators = gulp.src(
+    'bower_components/polymer-decorators/polymer-decorators.js',
+    { base: 'bower_components' }
+  ).pipe(gulp.dest(path.join(PUBLIC_DIR, 'bower_components')));
+
+  return merge(files, webcomponents, polymerDecorators);
 });
 
 /**
@@ -167,6 +177,9 @@ gulp.task('build:resources:dev', () => {
   // node_modulesのシンボリックリンクを作成
   const node = vfs.src('node_modules', { followSymlinks: false })
     .pipe(vfs.symlink(PUBLIC_DIR));
+  // bower_componentsのシンボリックリンクを作成
+  const bower = vfs.src('bower_components', { followSymlinks: false })
+    .pipe(vfs.symlink(PUBLIC_DIR));
   // imagesのシンボリックリンクを作成
   const images = vfs.src('src/images', { followSymlinks: false })
     .pipe(vfs.symlink(PUBLIC_DIR));
@@ -177,7 +190,7 @@ gulp.task('build:resources:dev', () => {
   const serviceWorker = vfs.src('src/service-worker.js', { followSymlinks: false })
     .pipe(vfs.symlink(PUBLIC_DIR));
 
-  return merge(node, images, manifest, serviceWorker);
+  return merge(node, bower, images, manifest, serviceWorker);
 });
 
 //--------------------------------------------------
