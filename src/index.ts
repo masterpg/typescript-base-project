@@ -1,1 +1,1 @@
-import './my-app';
+import './app/app-view';

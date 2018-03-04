@@ -15,14 +15,19 @@ const browserSync = require('browser-sync');
 //----------------------------------------------------------------------
 
 /**
- * srcディレクトリです。
+ * Web公開ディレクトリです。
+ */
+const PUBLIC_DIR = 'public';
+
+/**
+ * ソースディレクトリです。
  */
 const SRC_DIR = 'src';
 
 /**
- * Web公開ディレクトリです。
+ * キャッシュディレクトリです。
  */
-const PUBLIC_DIR = 'public';
+const CACHE_DIR = '.cache';
 
 /**
  * 環境定数(開発)です。
@@ -49,7 +54,8 @@ const ENV_PROD = 'prod';
  */
 gulp.task('serve', (done) => {
   return sequence(
-    'build:dev',
+    'clean:dev',
+    'build:resources:dev',
     ['webpack-dev-server', 'json-server'],
     done
   );
@@ -76,7 +82,7 @@ gulp.task('json-server', shell.task([
  * webpack-dev-serverを起動します。
  */
 gulp.task('webpack-dev-server', shell.task([
-  'node_modules/.bin/webpack-dev-server --config webpack/webpack.config.dev.js',
+  'node_modules/.bin/webpack-dev-server --config webpack.config.dev.js',
 ]));
 
 /**
@@ -88,7 +94,7 @@ gulp.task('browser-sync', () => {
     ui: { port: 5005 },
     open: false,
     server: {
-      baseDir: "./public/",
+      baseDir: PUBLIC_DIR,
     }
   });
 });
@@ -117,7 +123,7 @@ gulp.task('build', (done) => {
  * webpack(本番環境用)を実行します。
  */
 gulp.task('build:webpack:prod', shell.task([
-  `node_modules/.bin/webpack --config webpack/webpack.config.${ENV_PROD}`
+  `node_modules/.bin/webpack --config webpack.config.${ENV_PROD}`
 ]));
 
 /**
@@ -125,7 +131,7 @@ gulp.task('build:webpack:prod', shell.task([
  */
 gulp.task('build:resources:prod', () => {
   const files = gulp.src([
-    'src/manifest.json',
+    `${SRC_DIR}/manifest.json`,
   ]).pipe(gulp.dest(PUBLIC_DIR));
 
   const webcomponents = gulp.src(
@@ -145,7 +151,7 @@ gulp.task('build:resources:prod', () => {
  * service-worker.jsを生成します。
  */
 gulp.task('build:service-worker', shell.task([
-  `cd ${PUBLIC_DIR} && sw-precache --config=../src/sw-precache-config.js`,
+  `cd ${PUBLIC_DIR} && sw-precache --config=../${SRC_DIR}/sw-precache-config.js`,
 ]));
 
 //------------------------------
@@ -167,7 +173,7 @@ gulp.task('build:dev', () => {
  * webpack(開発環境用)を実行します。
  */
 gulp.task('build:webpack:dev', shell.task([
-  `node_modules/.bin/webpack --config webpack/webpack.config.${ENV_DEV}`
+  `node_modules/.bin/webpack --config webpack.config.${ENV_DEV}`
 ]));
 
 /**
@@ -180,10 +186,10 @@ gulp.task('build:resources:dev', () => {
   // bower_componentsのシンボリックリンクを作成
   const bower = vfs.src('bower_components', { followSymlinks: false })
     .pipe(vfs.symlink(PUBLIC_DIR));
-  const manifest = vfs.src('src/manifest.json', { followSymlinks: false })
+  const manifest = vfs.src(`${SRC_DIR}/manifest.json`, { followSymlinks: false })
     .pipe(vfs.symlink(PUBLIC_DIR));
   // service-worker.jsのシンボリックリンクを作成
-  const serviceWorker = vfs.src('src/service-worker.js', { followSymlinks: false })
+  const serviceWorker = vfs.src(`${SRC_DIR}/service-worker.js`, { followSymlinks: false })
     .pipe(vfs.symlink(PUBLIC_DIR));
 
   return merge(node, bower,  manifest, serviceWorker);
@@ -197,7 +203,7 @@ gulp.task('build:resources:dev', () => {
  * プロジェクトをクリーンします。
  */
 gulp.task('clean', () => {
-  return del(['public', '.cache']);
+  return del([PUBLIC_DIR, CACHE_DIR]);
 });
 
 /**
@@ -206,7 +212,6 @@ gulp.task('clean', () => {
 gulp.task('clean:dev', () => {
   return del([
     path.join(PUBLIC_DIR, '**/*'),
-    path.join(`!${PUBLIC_DIR}`, 'images/**'),
-    path.join(`!${PUBLIC_DIR}`, 'index.bundle.js'),
+    // path.join(`!${PUBLIC_DIR}`, 'images/**'),
   ]);
 });
