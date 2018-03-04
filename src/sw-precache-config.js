@@ -12,9 +12,10 @@
 
 module.exports = {
   staticFileGlobs: [
+    'bower_components/**/*',
     'node_modules/**/*',
-    'index.html',
     'index.bundle.*.js',
+    'index.html',
     'manifest.json',
   ],
   navigateFallback: 'index.html',

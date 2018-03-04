@@ -10,7 +10,7 @@ module.exports = merge(baseConfig, {
     'index': 'src/index.ts',
   },
   output: {
-    path: path.resolve(__dirname, 'public/aaa/bbb'),
+    path: path.resolve(__dirname, 'public'),
     filename: '[name].bundle.[chunkhash].js'
   },
   plugins: [
