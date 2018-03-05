@@ -1,6 +1,7 @@
 const { customElement, query } = Polymer.decorators;
 
 import '../../styles/base-styles';
+import './contact-list';
 import '@polymer/paper-button/paper-button';
 import '@polymer/polymer/polymer';
 import * as api from '../../api';
@@ -23,7 +24,7 @@ export class AppView extends GestureEventListeners(PolymerElement) {
   //
   //----------------------------------------------------------------------
 
-  __posts: api.Post[] = [];
+  __contacts: api.Contact[] = [];
 
   //----------------------------------------------------------------------
   //
@@ -48,10 +49,7 @@ export class AppView extends GestureEventListeners(PolymerElement) {
   }
 
   async __buttonOnClick(e) {
-    const posts = await api.getPosts();
-    posts.forEach((item, index, list) => {
-      console.log('id:', item.id, ', title:', item.title, ', author:', item.author);
-    });
-    this.__posts = posts;
+    const contacts = await api.fetchContacts();
+    this.__contacts = contacts;
   }
 }

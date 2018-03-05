@@ -39,10 +39,13 @@
   },
   "dependencies": {
     "@polymer/iron-flex-layout": "3.0.0-pre.1",
+    "@polymer/iron-image": "3.0.0-pre.1",
+    "@polymer/iron-list": "3.0.0-pre.1",
     "@polymer/paper-button": "3.0.0-pre.1",
     "@polymer/paper-styles": "3.0.0-pre.1",
     "@polymer/polymer": "^3.0.0-pre.10",
     "@webcomponents/webcomponentsjs": "^1.1.0",
-    "axios": "^0.18.0"
+    "axios": "^0.18.0",
+    "reflect-metadata": "rbuckton/reflect-metadata"
   }
 }

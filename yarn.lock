@@ -6,7 +6,7 @@
   version "3.0.0-pre.10"
   resolved "https://registry.yarnpkg.com/@polymer/font-roboto/-/font-roboto-3.0.0-pre.10.tgz#24489cac9a556d4b5d119749ff48a703350cabc2"
 
-"@polymer/iron-a11y-keys-behavior@^3.0.0-pre.10":
+"@polymer/iron-a11y-keys-behavior@^3.0.0-pre.1", "@polymer/iron-a11y-keys-behavior@^3.0.0-pre.10":
   version "3.0.0-pre.10"
   resolved "https://registry.yarnpkg.com/@polymer/iron-a11y-keys-behavior/-/iron-a11y-keys-behavior-3.0.0-pre.10.tgz#87c861f04a77650c3748164d97141ca71f303d67"
   dependencies:
@@ -39,9 +39,36 @@
   dependencies:
     "@polymer/polymer" "^3.0.0-pre.10"
 
+"@polymer/iron-image@3.0.0-pre.1":
+  version "3.0.0-pre.1"
+  resolved "https://registry.yarnpkg.com/@polymer/iron-image/-/iron-image-3.0.0-pre.1.tgz#4c182bd822323c4680d7bc4fbc3a7036b39250c0"
+  dependencies:
+    "@polymer/polymer" "^3.0.0-pre.1"
+
+"@polymer/iron-list@3.0.0-pre.1":
+  version "3.0.0-pre.1"
+  resolved "https://registry.yarnpkg.com/@polymer/iron-list/-/iron-list-3.0.0-pre.1.tgz#8fda06e384b3676d466583d4466b3331508d0bf5"
+  dependencies:
+    "@polymer/iron-a11y-keys-behavior" "^3.0.0-pre.1"
+    "@polymer/iron-resizable-behavior" "^3.0.0-pre.1"
+    "@polymer/iron-scroll-target-behavior" "^3.0.0-pre.1"
+    "@polymer/polymer" "^3.0.0-pre.1"
+
 "@polymer/iron-meta@^3.0.0-pre.10":
   version "3.0.0-pre.10"
   resolved "https://registry.yarnpkg.com/@polymer/iron-meta/-/iron-meta-3.0.0-pre.10.tgz#84bd9216726673b8d7b4617633e8be3f8cacea89"
+  dependencies:
+    "@polymer/polymer" "^3.0.0-pre.10"
+
+"@polymer/iron-resizable-behavior@^3.0.0-pre.1":
+  version "3.0.0-pre.10"
+  resolved "https://registry.yarnpkg.com/@polymer/iron-resizable-behavior/-/iron-resizable-behavior-3.0.0-pre.10.tgz#0e44af3edfad4e5b655b4b2cb6a205530bbd0ae0"
+  dependencies:
+    "@polymer/polymer" "^3.0.0-pre.10"
+
+"@polymer/iron-scroll-target-behavior@^3.0.0-pre.1":
+  version "3.0.0-pre.10"
+  resolved "https://registry.yarnpkg.com/@polymer/iron-scroll-target-behavior/-/iron-scroll-target-behavior-3.0.0-pre.10.tgz#d18aa5d83819a6e9c44b76ca8875297125576481"
   dependencies:
     "@polymer/polymer" "^3.0.0-pre.10"
 
@@ -5426,6 +5453,10 @@ redent@^1.0.0:
   dependencies:
     indent-string "^2.1.0"
     strip-indent "^1.0.1"
+
+reflect-metadata@rbuckton/reflect-metadata:
+  version "0.1.12"
+  resolved "https://codeload.github.com/rbuckton/reflect-metadata/tar.gz/c2dbe1d02ceb9987f9002eedf0cdb21d74de0019"
 
 regenerator-runtime@^0.11.0:
   version "0.11.1"

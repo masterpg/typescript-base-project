@@ -12,45 +12,9 @@
       padding: 0;
     }
   }
-
-  .posts {
-    border-collapse: collapse;
-  }
-
-  .posts thead th {
-    text-align: left;
-    font-weight: normal;
-  }
-
-  .posts thead th.id {
-    width: 40px;
-  }
-
-  .posts thead th.title {
-    width: 150px;
-  }
-
-  .posts thead th.author {
-    width: 150px;
-  }
 </style>
 
 <div class="main">
-  <paper-button on-click="__buttonOnClick">Load posts</paper-button>
-  <table class="posts">
-    <thead>
-      <th class="id">ID</th>
-      <th class="title">Title</th>
-      <th class="author">Author</th>
-    </thead>
-    <tbody>
-      <template is="dom-repeat" items="[[__posts]]">
-        <tr>
-          <td>[[item.id]]</td>
-          <td>[[item.title]]</td>
-          <td>[[item.author]]</td>
-        </tr>
-      </template>
-    </tbody>
-  </table>
+  <paper-button on-click="__buttonOnClick">Load contacts</paper-button>
+  <contact-list contacts="[[__contacts]]"></contact-list>
 </div>
