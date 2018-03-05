@@ -4,6 +4,7 @@ import '../../styles/base-styles';
 import '@polymer/paper-button/paper-button';
 import '@polymer/polymer/polymer';
 import * as api from '../../api';
+import * as sw from '../service-worker';
 import * as view from './index.html';
 import { Element as PolymerElement } from '@polymer/polymer/polymer-element';
 import { GestureEventListeners, GestureEventListenersConstructor } from '@polymer/polymer/lib/mixins/gesture-event-listeners';
@@ -32,6 +33,8 @@ export class AppView extends GestureEventListeners(PolymerElement) {
 
   constructor() {
     super();
+
+    sw.addStateChangeListener(this.__swOnStateChange);
   }
 
   //----------------------------------------------------------------------
@@ -39,6 +42,10 @@ export class AppView extends GestureEventListeners(PolymerElement) {
   //  Event handlers
   //
   //----------------------------------------------------------------------
+
+  __swOnStateChange(info) {
+    console.log(info);
+  }
 
   async __buttonOnClick(e) {
     const posts = await api.getPosts();
