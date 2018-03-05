@@ -8,10 +8,22 @@ yarnをインストールします。
 $ npm install -g yarn
 ```
 
-プロジェクトの依存パッケージをインストールします。
+yarnでプロジェクトの依存パッケージをインストールします。
 
 ```console
 $ yarn install
+```
+
+bowerをインストールします。
+
+```console
+$ npm install -g bower
+```
+
+bowerでプロジェクトの依存パッケージをインストールします。
+
+```console
+$ bower install
 ```
 
 
@@ -23,7 +35,7 @@ $ yarn install
 $ gulp serve
 ```
 
-起動したらブラウザで http://localhost:5000/ にアクセスすることで画面が表示されます。
+起動したらブラウザで http://localhost:5000/index.html にアクセスすることで画面が表示されます。
 
 
 ## プロジェクトビルド
@@ -37,8 +49,8 @@ $ gulp build
 ビルド結果を検証したい場合、次のコマンドでビルド結果の検証用サーバーを起動します。
 
 ```console
-$ gulp serve:build
+$ gulp serve:prod
 ```
 
-起動したらブラウザで http://localhost:5000/ にアクセスすることで画面が表示されます。
+起動したらブラウザで http://localhost:5010/index.html にアクセスすることで画面が表示されます。
 

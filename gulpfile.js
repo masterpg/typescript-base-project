@@ -90,8 +90,8 @@ gulp.task('webpack-dev-server', shell.task([
  */
 gulp.task('browser-sync', () => {
   browserSync.init({
-    port: 5000,
-    ui: { port: 5005 },
+    port: 5010,
+    ui: { port: 5015 },
     open: false,
     server: {
       baseDir: PUBLIC_DIR,
@@ -144,7 +144,12 @@ gulp.task('build:resources:prod', () => {
     { base: 'bower_components' }
   ).pipe(gulp.dest(path.join(PUBLIC_DIR, 'bower_components')));
 
-  return merge(files, webcomponents, polymerDecorators);
+  const reflect = gulp.src(
+    'node_modules/reflect-metadata/Reflect.js',
+    { base: 'bower_components' }
+  ).pipe(gulp.dest(path.join(PUBLIC_DIR, 'node_modules')));
+
+  return merge(files, webcomponents, polymerDecorators, reflect);
 });
 
 /**
