@@ -106,8 +106,10 @@ export class ContactListItem extends GestureEventListeners(PolymerElement) {
   __editingShortText: boolean = false;
 
   @query('#editingShortTextInput')
+  // @ts-ignore
   __editingShortTextInput: HTMLInputElement;
 
+  // @ts-ignore computedプロパティの引数エラーになるが理由が不明
   @computed('contact.first', 'contact.last')
   get __fullName(): string {
     return `${this.contact.first} ${this.contact.last}`;
@@ -120,6 +122,7 @@ export class ContactListItem extends GestureEventListeners(PolymerElement) {
   //----------------------------------------------------------------------
 
   @property()
+  // @ts-ignore
   contact: api.Contact;
 
   //----------------------------------------------------------------------

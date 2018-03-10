@@ -14,6 +14,7 @@ const OUTPUT_PATH = 'hoge';
 const BASE_PATH = '/boo/foo/woo/';
 
 module.exports = merge(baseConfig, {
+  mode: 'production',
   entry: {
     'index': 'src/index.ts',
   },

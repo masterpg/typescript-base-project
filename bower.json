@@ -5,7 +5,7 @@
   ],
   "license": "BSD-3-Clause",
   "dependencies": {
-    "polymer-decorators": "1.2.0"
+    "polymer-decorators": "Polymer/polymer-decorators#^2.0.0"
   },
   "devDependencies": {
     "web-component-tester": "^6.5.0"

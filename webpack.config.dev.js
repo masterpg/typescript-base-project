@@ -5,6 +5,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = merge(baseConfig, {
+  mode: 'development',
   entry: {
     'index': 'src/index.ts',
     'test': 'test/test.ts',
