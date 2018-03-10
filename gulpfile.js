@@ -79,14 +79,14 @@ gulp.task('json-server', shell.task([
 ]));
 
 /**
- * webpack-dev-serverを起動します。
+ * webpack-dev-server(開発環境用)を起動します。
  */
 gulp.task('webpack-dev-server', shell.task([
-  'node_modules/.bin/webpack-dev-server --config webpack.config.dev.js',
+  `node_modules/.bin/webpack-dev-server --config webpack.config.${ENV_DEV}`,
 ]));
 
 /**
- * browser-syncを起動します。
+ * browser-sync(本番環境用のビルド結果検証用)を起動します。
  */
 gulp.task('browser-sync', () => {
   browserSync.init({
@@ -113,8 +113,6 @@ gulp.task('build', (done) => {
   return sequence(
     'clean',
     'build:webpack:prod',
-    'build:resources:prod',
-    'build:service-worker',
     done
   );
 });
@@ -124,39 +122,6 @@ gulp.task('build', (done) => {
  */
 gulp.task('build:webpack:prod', shell.task([
   `node_modules/.bin/webpack --config webpack.config.${ENV_PROD}`
-]));
-
-/**
- * 公開ディレクトリに本番環境用のリソースを準備します。
- */
-gulp.task('build:resources:prod', () => {
-  const files = gulp.src([
-    `${SRC_DIR}/manifest.json`,
-  ]).pipe(gulp.dest(PUBLIC_DIR));
-
-  const webcomponents = gulp.src(
-    'node_modules/@webcomponents/webcomponentsjs/webcomponents-*.js',
-    { base: 'node_modules' }
-  ).pipe(gulp.dest(path.join(PUBLIC_DIR, 'node_modules')));
-
-  const polymerDecorators = gulp.src(
-    'bower_components/polymer-decorators/polymer-decorators.js',
-    { base: 'bower_components' }
-  ).pipe(gulp.dest(path.join(PUBLIC_DIR, 'bower_components')));
-
-  const reflect = gulp.src(
-    'node_modules/reflect-metadata/Reflect.js',
-    { base: 'bower_components' }
-  ).pipe(gulp.dest(path.join(PUBLIC_DIR, 'node_modules')));
-
-  return merge(files, webcomponents, polymerDecorators, reflect);
-});
-
-/**
- * service-worker.jsを生成します。
- */
-gulp.task('build:service-worker', shell.task([
-  `cd ${PUBLIC_DIR} && sw-precache --config=../${SRC_DIR}/sw-precache-config.js`,
 ]));
 
 //------------------------------
@@ -197,7 +162,7 @@ gulp.task('build:resources:dev', () => {
   const serviceWorker = vfs.src(`${SRC_DIR}/service-worker.js`, { followSymlinks: false })
     .pipe(vfs.symlink(PUBLIC_DIR));
 
-  return merge(node, bower,  manifest, serviceWorker);
+  return merge(node, bower, manifest, serviceWorker);
 });
 
 //--------------------------------------------------
