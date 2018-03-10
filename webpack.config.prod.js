@@ -7,11 +7,12 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 
 // ビルド結果の出力パス
-const OUTPUT_PATH = 'public';
+// 注意: この値は`gulp build`コマンド実行時に書き換えられます
+const OUTPUT_PATH = 'hoge';
 
 // 基準パス
-// 例: /aaa/bbb/ccc/ (パスの最初と最後は"/"をつけること)
-const BASE_PATH = '/';
+// 注意: この値は`gulp build`コマンド実行時に書き換えられます
+const BASE_PATH = '/boo/foo/woo/';
 
 module.exports = merge(baseConfig, {
   entry: {

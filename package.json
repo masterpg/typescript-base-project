@@ -12,6 +12,7 @@
     "eslint-plugin-html": "^2.0.0",
     "gulp": "^3.9.1",
     "gulp-changed": "^3.1.0",
+    "gulp-replace": "^0.6.1",
     "gulp-shell": "^0.6.3",
     "html-loader": "^0.5.1",
     "html-webpack-plugin": "^2.30.1",
