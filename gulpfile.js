@@ -51,20 +51,13 @@ const ENV_PROD = 'prod';
 //----------------------------------------------------------------------
 
 //--------------------------------------------------
-//  開発サーバー起動
+//  本番環境用タスク
 //--------------------------------------------------
 
-/**
- * 開発サーバーを起動します。
- */
-gulp.task('serve', (done) => {
-  return sequence(
-    'clean:dev',
-    'build:resources:dev',
-    ['webpack-dev-server', 'json-server'],
-    done
-  );
-});
+let _orgOutputPath = '';
+let _orgBasePath = '';
+const regOutputPath = /\s*OUTPUT_PATH\s*=\s*["']([^"']*)["'];/;
+const regBasePath = /\s*BASE_PATH\s*=\s*["']([^"']*)["'];/;
 
 /**
  * 本番環境用のビルド結果を検証するための開発サーバーを起動します。
@@ -75,20 +68,6 @@ gulp.task('serve:prod', (done) => {
     done
   );
 });
-
-/**
- * json-serverを起動します。
- */
-gulp.task('json-server', shell.task([
-  'node_modules/.bin/json-server --watch data/db.json --port 5001',
-]));
-
-/**
- * webpack-dev-server(開発環境用)を起動します。
- */
-gulp.task('webpack-dev-server', shell.task([
-  `node_modules/.bin/webpack-dev-server --config webpack.config.${ENV_DEV}`,
-]));
 
 /**
  * browser-sync(本番環境用のビルド結果検証用)を起動します。
@@ -103,18 +82,6 @@ gulp.task('browser-sync', () => {
     }
   });
 });
-
-//--------------------------------------------------
-//  ビルドタスク
-//--------------------------------------------------
-
-//------------------------------
-//  本番環境用
-
-let _orgOutputPath = '';
-let _orgBasePath = '';
-const regOutputPath = /\s*OUTPUT_PATH\s*=\s*["']([^"']*)["'];/;
-const regBasePath = /\s*BASE_PATH\s*=\s*["']([^"']*)["'];/;
 
 /**
  * 公開ディレクトリ(本番環境用)の構築を行います。
@@ -172,9 +139,34 @@ gulp.task('build:after:prod', () => {
     .pipe(gulp.dest('./'));
 });
 
-//------------------------------
-//  開発環境用
-// (開発サーバー起動時に使用)
+//--------------------------------------------------
+//  開発環境用タスク
+//--------------------------------------------------
+
+/**
+ * 開発サーバーを起動します。
+ */
+gulp.task('serve', (done) => {
+  return sequence(
+    'clean:dev',
+    ['webpack-dev-server', 'json-server'],
+    done
+  );
+});
+
+/**
+ * json-serverを起動します。
+ */
+gulp.task('json-server', shell.task([
+  'node_modules/.bin/json-server --watch data/db.json --port 5001',
+]));
+
+/**
+ * webpack-dev-server(開発環境用)を起動します。
+ */
+gulp.task('webpack-dev-server', shell.task([
+  `node_modules/.bin/webpack-dev-server --config webpack.config.${ENV_DEV}`,
+]));
 
 /**
  * 公開ディレクトリ(開発環境用)の構築を行います。
@@ -182,7 +174,6 @@ gulp.task('build:after:prod', () => {
 gulp.task('build:dev', () => {
   return sequence(
     'clean:dev',
-    'build:resources:dev',
     'build:webpack:dev'
   );
 });
@@ -193,25 +184,6 @@ gulp.task('build:dev', () => {
 gulp.task('build:webpack:dev', shell.task([
   `node_modules/.bin/webpack --config webpack.config.${ENV_DEV}`
 ]));
-
-/**
- * 公開ディレクトリに開発環境用のリソースを準備します。
- */
-gulp.task('build:resources:dev', () => {
-  // node_modulesのシンボリックリンクを作成
-  const node = vfs.src('node_modules', { followSymlinks: false })
-    .pipe(vfs.symlink(OUTPUT_PATH));
-  // bower_componentsのシンボリックリンクを作成
-  const bower = vfs.src('bower_components', { followSymlinks: false })
-    .pipe(vfs.symlink(OUTPUT_PATH));
-  const manifest = vfs.src(`${SRC_DIR}/manifest.json`, { followSymlinks: false })
-    .pipe(vfs.symlink(OUTPUT_PATH));
-  // service-worker.jsのシンボリックリンクを作成
-  const serviceWorker = vfs.src(`${SRC_DIR}/service-worker.js`, { followSymlinks: false })
-    .pipe(vfs.symlink(OUTPUT_PATH));
-
-  return merge(node, bower, manifest, serviceWorker);
-});
 
 //--------------------------------------------------
 //  共通/その他

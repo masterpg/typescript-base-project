@@ -3,7 +3,6 @@ const baseConfig = require('./webpack.config.base.js');
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 
 // ビルド結果の出力パス
@@ -34,23 +33,6 @@ module.exports = merge(baseConfig, {
       /environments\/environment\.ts/,
       'environment.prod.ts'
     ),
-    new CopyWebpackPlugin([{
-      from: 'src/images',
-      to: 'images', // ｢output.path｣を基準
-    }]),
-    new CopyWebpackPlugin([
-      {
-        from: 'src/manifest.json',
-      }, {
-        from: 'node_modules/@webcomponents/webcomponentsjs/webcomponents-*.js',
-      }, {
-        from: 'node_modules/reflect-metadata/Reflect.js',
-        to: 'node_modules/reflect-metadata', // ｢output.path｣を基準
-      }, {
-        from: 'bower_components/polymer-decorators/polymer-decorators.js',
-        to: 'bower_components/polymer-decorators', // ｢output.path｣を基準
-      },
-    ]),
     new SWPrecacheWebpackPlugin({
       staticFileGlobs: [
         path.join(OUTPUT_PATH, BASE_PATH, 'bower_components/**/*'),

@@ -38,7 +38,7 @@ export async function fetchPosts(id?: number): Promise<Post[]> {
 }
 
 export async function fetchContacts(): Promise<Contact[]> {
-  let url = 'http://localhost:5001/contacts';
+  const url = 'http://localhost:5001/contacts';
   const response = await axios.get(url, {});
   return <Contact[]>response.data;
 }

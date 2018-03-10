@@ -1,5 +1,6 @@
 const path = require('path');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 
 module.exports = {
@@ -37,6 +38,23 @@ module.exports = {
     ]
   },
   plugins: [
+    new CopyWebpackPlugin([
+      {
+        from: 'src/manifest.json',
+      }, {
+        from: 'node_modules/@webcomponents/webcomponentsjs/webcomponents-*.js',
+      }, {
+        from: 'node_modules/reflect-metadata/Reflect.js',
+        to: 'node_modules/reflect-metadata', // ｢output.path｣を基準
+      }, {
+        from: 'bower_components/polymer-decorators/polymer-decorators.js',
+        to: 'bower_components/polymer-decorators', // ｢output.path｣を基準
+      },
+    ]),
+    new CopyWebpackPlugin([{
+      from: 'src/images',
+      to: 'images', // ｢output.path｣を基準
+    }]),
     new ImageminPlugin({
       test: /images\/[^\.]+\.(jpe?g|png|gif|svg)$/i,
       cacheFolder: '.cache'
