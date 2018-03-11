@@ -6,12 +6,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 
 // ビルド結果の出力パス
-// 注意: この値は`gulp build`コマンド実行時に書き換えられます
-const OUTPUT_PATH = 'hoge';
+// 注意: この値は`gulp build`コマンド実行時に設定されます
+const OUTPUT_PATH = 'public';
 
 // 基準パス
-// 注意: この値は`gulp build`コマンド実行時に書き換えられます
-const BASE_PATH = '/boo/foo/woo/';
+// 注意: この値は`gulp build`コマンド実行時に設定されます
+const BASE_PATH = '/';
 
 module.exports = merge(baseConfig, {
   mode: 'production',
@@ -47,4 +47,13 @@ module.exports = merge(baseConfig, {
       stripPrefix: path.join(OUTPUT_PATH, BASE_PATH),
     }),
   ],
+  devServer: {
+    contentBase: path.resolve(__dirname, OUTPUT_PATH),
+    port: 5010,
+    host: '0.0.0.0',
+    disableHostCheck: true,
+    proxy: {
+      '/api/*': 'http://0.0.0.0:5001',
+    },
+  },
 });

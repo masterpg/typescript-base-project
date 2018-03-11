@@ -4,6 +4,14 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+// ビルド結果の出力パス
+// 注意: この値は`gulp serve`コマンド実行時に設定されます
+const OUTPUT_PATH = 'public';
+
+// 基準パス
+// 注意: この値は`gulp serve`コマンド実行時に設定されます
+const BASE_PATH = '/';
+
 module.exports = merge(baseConfig, {
   mode: 'development',
   entry: {
@@ -11,12 +19,13 @@ module.exports = merge(baseConfig, {
     'test': 'test/test.ts',
   },
   output: {
-    path: __dirname,
+    path: path.join(__dirname, OUTPUT_PATH, BASE_PATH),
     filename: '[name].bundle.js',
+    publicPath: BASE_PATH,
   },
   devtool: 'inline-source-map',
   devServer: {
-    contentBase: path.resolve(__dirname, 'public'),
+    contentBase: path.join(__dirname, OUTPUT_PATH),
     port: 5000,
     host: '0.0.0.0',
     disableHostCheck: true,
@@ -32,7 +41,7 @@ module.exports = merge(baseConfig, {
       filename: 'index.html', // ｢output.path｣を基準
       template: 'src/index.html',
       inject: false,
-      basePath: '',
+      basePath: BASE_PATH,
       bundledScript: '<script type="text/javascript" src="index.bundle.js"></script>',
     }),
     new HtmlWebpackPlugin({
