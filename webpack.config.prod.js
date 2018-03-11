@@ -21,6 +21,7 @@ module.exports = merge(baseConfig, {
   output: {
     path: path.join(__dirname, OUTPUT_PATH, BASE_PATH),
     filename: '[name].bundle.[chunkhash].js',
+    publicPath: BASE_PATH,
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -47,13 +48,4 @@ module.exports = merge(baseConfig, {
       stripPrefix: path.join(OUTPUT_PATH, BASE_PATH),
     }),
   ],
-  devServer: {
-    contentBase: path.resolve(__dirname, OUTPUT_PATH),
-    port: 5010,
-    host: '0.0.0.0',
-    disableHostCheck: true,
-    proxy: {
-      '/api/*': 'http://0.0.0.0:5001',
-    },
-  },
 });
