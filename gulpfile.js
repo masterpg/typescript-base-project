@@ -50,6 +50,13 @@ const ENV_PROD = 'prod';
 //
 //----------------------------------------------------------------------
 
+/**
+ * json-serverを起動します。
+ */
+gulp.task('json-server', shell.task([
+  'node json-server.js',
+]));
+
 //--------------------------------------------------
 //  本番環境用タスク
 //--------------------------------------------------
@@ -153,13 +160,6 @@ gulp.task('serve', (done) => {
     done
   );
 });
-
-/**
- * json-serverを起動します。
- */
-gulp.task('json-server', shell.task([
-  'node_modules/.bin/json-server --watch data/db.json --port 5001',
-]));
 
 /**
  * webpack-dev-server(開発環境用)を起動します。

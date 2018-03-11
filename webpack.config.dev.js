@@ -17,8 +17,13 @@ module.exports = merge(baseConfig, {
   devtool: 'inline-source-map',
   devServer: {
     contentBase: path.resolve(__dirname, 'public'),
-    hot: true,
     port: 5000,
+    host: '0.0.0.0',
+    disableHostCheck: true,
+    proxy: {
+      '/api/*': 'http://0.0.0.0:5001',
+    },
+    hot: true,
   },
   plugins: [
     new webpack.IgnorePlugin(/vertx/),

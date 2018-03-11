@@ -28,7 +28,7 @@ export interface Contact {
 }
 
 export async function fetchPosts(id?: number): Promise<Post[]> {
-  let url = 'http://localhost:5001/posts';
+  let url = '/api/posts';
   if (id) {
     url = `${url}/${id}`;
   }
@@ -38,13 +38,13 @@ export async function fetchPosts(id?: number): Promise<Post[]> {
 }
 
 export async function fetchContacts(): Promise<Contact[]> {
-  const url = 'http://localhost:5001/contacts';
+  const url = '/api/contacts';
   const response = await axios.get(url, {});
   return <Contact[]>response.data;
 }
 
 export async function fetchContactById(id: string): Promise<Contact> {
-  let url = 'http://localhost:5001/contacts';
+  let url = '/api/contacts';
   url = `${url}/${id}`;
   const response = await axios.get(url, {});
   return <Contact>response.data;

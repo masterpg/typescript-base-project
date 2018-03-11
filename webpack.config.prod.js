@@ -43,6 +43,7 @@ module.exports = merge(baseConfig, {
         path.join(OUTPUT_PATH, BASE_PATH, 'manifest.json'),
       ],
       navigateFallback: 'index.html',
+      navigateFallbackWhitelist: [/^(?!\/api).*$/],
       stripPrefix: path.join(OUTPUT_PATH, BASE_PATH),
     }),
   ],
