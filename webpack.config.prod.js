@@ -31,8 +31,8 @@ module.exports = merge(baseConfig, {
       bundledScript: '',
     }),
     new webpack.NormalModuleReplacementPlugin(
-      /environments\/environment\.ts/,
-      'environment.prod.ts'
+      /config\/config\.dev\.ts/,
+      'config.prod.ts'
     ),
     new SWPrecacheWebpackPlugin({
       staticFileGlobs: [

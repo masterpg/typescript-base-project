@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { config } from '../config';
 
 export interface Post {
   id: number;
@@ -27,8 +28,11 @@ export interface Contact {
   color: string;
 }
 
+export const destinationHost =
+  `${config.apiInfo.protocol}://${config.apiInfo.host}:${config.apiInfo.port}`;
+
 export async function fetchPosts(id?: number): Promise<Post[]> {
-  let url = '/api/posts';
+  let url = `${destinationHost}/api/posts`;
   if (id) {
     url = `${url}/${id}`;
   }
@@ -38,13 +42,13 @@ export async function fetchPosts(id?: number): Promise<Post[]> {
 }
 
 export async function fetchContacts(): Promise<Contact[]> {
-  const url = '/api/contacts';
+  const url = `${destinationHost}/api/contacts`;
   const response = await axios.get(url, {});
   return <Contact[]>response.data;
 }
 
 export async function fetchContactById(id: string): Promise<Contact> {
-  let url = '/api/contacts';
+  let url = `${destinationHost}/api/contacts`;
   url = `${url}/${id}`;
   const response = await axios.get(url, {});
   return <Contact>response.data;
