@@ -4,14 +4,25 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
-// ビルド結果の出力パス
-// 注意: この値は`gulp build`コマンド実行時に設定されます
+/**
+ * ビルド結果の出力パス
+ * 注意: この値は`gulp serve`コマンド実行時に設定されます
+ */
 const OUTPUT_PATH = 'public';
 
-// 基準パス
-// 注意: この値は`gulp build`コマンド実行時に設定されます
+/**
+ * 基準パス
+ * 注意: この値は`gulp serve`コマンド実行時に設定されます
+ */
 const BASE_PATH = '/';
+
+/**
+ * キャッシュディレクトリ
+ * 注意: この値は`gulp build`コマンド実行時に設定されます
+ */
+const CACHE_DIR = '.cache';
 
 module.exports = merge(baseConfig, {
   mode: 'production',
@@ -24,6 +35,10 @@ module.exports = merge(baseConfig, {
     publicPath: BASE_PATH,
   },
   plugins: [
+    new CleanWebpackPlugin(
+      [OUTPUT_PATH, CACHE_DIR],
+      { verbose: true },
+    ),
     new HtmlWebpackPlugin({
       filename: 'index.html',  // ｢output.path｣を基準
       template: 'src/index.html',

@@ -3,14 +3,25 @@ const baseConfig = require('./webpack.config.base.js');
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
-// ビルド結果の出力パス
-// 注意: この値は`gulp serve`コマンド実行時に設定されます
+/**
+ * ビルド結果の出力パス
+ * 注意: この値は`gulp serve`コマンド実行時に設定されます
+ */
 const OUTPUT_PATH = 'public';
 
-// 基準パス
-// 注意: この値は`gulp serve`コマンド実行時に設定されます
+/**
+ * 基準パス
+ * 注意: この値は`gulp serve`コマンド実行時に設定されます
+ */
 const BASE_PATH = '/';
+
+/**
+ * キャッシュディレクトリ
+ * 注意: この値は`gulp build`コマンド実行時に設定されます
+ */
+const CACHE_DIR = '.cache';
 
 module.exports = merge(baseConfig, {
   mode: 'development',
@@ -35,6 +46,10 @@ module.exports = merge(baseConfig, {
     hot: true,
   },
   plugins: [
+    new CleanWebpackPlugin(
+      [OUTPUT_PATH],
+      { verbose: true },
+    ),
     new webpack.IgnorePlugin(/vertx/),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({

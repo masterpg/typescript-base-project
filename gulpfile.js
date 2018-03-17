@@ -20,14 +20,11 @@ const replace = require('gulp-replace');
  */
 const OUTPUT_PATH = 'public';
 
-// 基準パスです。
-// 例: /boo/foo/woo/ (パスの最初と最後は"/"をつけること)
-const BASE_PATH = '/';
-
 /**
- * ソースディレクトリです。
+ * 基準パスです。
+ * 例: /boo/foo/woo/ (パスの最初と最後は"/"をつけること)
  */
-const SRC_DIR = 'src';
+const BASE_PATH = '/';
 
 /**
  * キャッシュディレクトリです。
@@ -90,7 +87,7 @@ gulp.task('browser-sync', () => {
  */
 gulp.task('build', (done) => {
   return sequence(
-    'clean',
+    // 'clean',
     'build:before:prod',
     'build:webpack:prod',
     done
@@ -120,7 +117,6 @@ gulp.task('build:before:prod', () => {
  */
 gulp.task('serve', (done) => {
   return sequence(
-    'clean:dev',
     'build:before:dev',
     ['webpack-dev-server', 'json-server'],
     done
@@ -139,7 +135,6 @@ gulp.task('webpack-dev-server', shell.task([
  */
 gulp.task('build:dev', () => {
   return sequence(
-    'clean:dev',
     'build:before:dev',
     'build:webpack:dev'
   );
@@ -168,16 +163,12 @@ gulp.task('build:webpack:dev', shell.task([
  */
 gulp.task('clean', () => {
   return del([OUTPUT_PATH, CACHE_DIR]);
-});
 
-/**
- * 公開ディレクトリ(開発環境用)のクリーンを行います。
- */
-gulp.task('clean:dev', () => {
-  return del([
-    path.join(OUTPUT_PATH, '**/*'),
-    // path.join(`!${OUTPUT_PATH}`, 'images/**'),
-  ]);
+  // 削除対象の除外例をのコメントで残しておく:
+  // return del([
+  //   path.join(OUTPUT_PATH, '**/*'),
+  //   path.join(`!${OUTPUT_PATH}`, 'images/**'),
+  // ]);
 });
 
 //----------------------------------------------------------------------
@@ -198,6 +189,7 @@ gulp.task('clean:dev', () => {
 function replaceWebpackConfigPath(env, outputPath, basePath) {
   const REG_OUTPUT_PATH = /\s*OUTPUT_PATH\s*=\s*(["'][^"']*["']);/;
   const REG_BASE_PATH = /\s*BASE_PATH\s*=\s*(["'][^"']*["']);/;
+  const REG_CACHE_DIR = /\s*CACHE_DIR\s*=\s*(["'][^"']*["']);/;
 
   // webpack.config.prod.js の内容を次のように書き換える
   //   OUTPUT_PATH = 'dist'; ⇒ OUTPUT_PATH = 'public';
@@ -208,6 +200,9 @@ function replaceWebpackConfigPath(env, outputPath, basePath) {
     }))
     .pipe(replace(REG_BASE_PATH, (match, $1) => {
       return match.replace($1, `'${basePath}'`);
+    }))
+    .pipe(replace(REG_CACHE_DIR, (match, $1) => {
+      return match.replace($1, `'${CACHE_DIR}'`);
     }))
     .pipe(gulp.dest('./'));
 }

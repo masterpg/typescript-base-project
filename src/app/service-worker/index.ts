@@ -6,7 +6,7 @@
 
 export enum ChangeState {
   installed = 'installed',
-  cached = 'cached'
+  cached = 'cached',
 }
 
 export type StateChangeLister = (info: StateChangeInfo) => void;

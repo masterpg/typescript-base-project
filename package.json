@@ -49,6 +49,7 @@
     "@polymer/polymer": "^3.0.0-pre.10",
     "@webcomponents/webcomponentsjs": "^1.1.0",
     "axios": "^0.18.0",
+    "clean-webpack-plugin": "^0.1.19",
     "reflect-metadata": "rbuckton/reflect-metadata"
   }
 }

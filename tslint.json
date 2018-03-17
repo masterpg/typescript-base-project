@@ -117,7 +117,7 @@
     "prefer-const": {"severity": "warning"},
 
     // Multi-line object liiterals and function calls should have a trailing comma. This helps avoid merge conflicts.
-    "trailing-comma": {"severity": "warning"}
+    "trailing-comma": [true, {"multiline": "always", "singleline": "never"}]
   },
 
   "defaultSeverity": "error"
