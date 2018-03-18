@@ -10,7 +10,6 @@ $_documentContainer.innerHTML = `
   <dom-module id="base-styles">
     <template>
       <style include="iron-flex iron-flex-alignment iron-flex-reverse iron-flex-factors iron-positioning">
-
         :host {
           box-sizing: border-box;
         }
@@ -51,6 +50,17 @@ $_documentContainer.innerHTML = `
           font-size: 22px;
         }
 
+        /*--------------------------------------------------
+          レスポンシブ対応
+        --------------------------------------------------*/
+
+        /* SP */
+        /* (定義された値より小さい場合にルールが適用される) */
+        @media (max-width: 640px) {
+          .card {
+            margin: 12px;
+          }
+        }
       </style>
     </template>
   </dom-module>

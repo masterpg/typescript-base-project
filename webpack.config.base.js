@@ -38,6 +38,7 @@ module.exports = {
     ],
   },
   plugins: [
+    // `to: xxx`の`xxx`は`output.path`が基準になる
     new CopyWebpackPlugin([
       {
         from: 'src/manifest.json',
@@ -45,10 +46,10 @@ module.exports = {
         from: 'node_modules/@webcomponents/webcomponentsjs/webcomponents-*.js',
       }, {
         from: 'node_modules/reflect-metadata/Reflect.js',
-        to: 'node_modules/reflect-metadata', // ｢output.path｣を基準
+        to: 'node_modules/reflect-metadata',
       }, {
         from: 'bower_components/polymer-decorators/polymer-decorators.js',
-        to: 'bower_components/polymer-decorators', // ｢output.path｣を基準
+        to: 'bower_components/polymer-decorators',
       },
     ]),
     new CopyWebpackPlugin([{

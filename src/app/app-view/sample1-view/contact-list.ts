@@ -1,15 +1,16 @@
 const { customElement, property, computed, query, observe } = Polymer.decorators;
 
-import '../../styles/base-styles';
 import '@polymer/iron-image/iron-image';
 import '@polymer/iron-list/iron-list';
 import '@polymer/paper-button/paper-button';
 import '@polymer/polymer/lib/elements/dom-if';
 import '@polymer/polymer/polymer';
-import * as api from '../../api';
 import { Element as PolymerElement } from '@polymer/polymer/polymer-element';
 import { GestureEventListeners, GestureEventListenersConstructor } from '@polymer/polymer/lib/mixins/gesture-event-listeners';
 import { html } from '@polymer/polymer/lib/utils/html-tag';
+
+import '../../../styles/base-styles';
+import * as api from '../../../api';
 
 @customElement('contact-list')
 export class ContactList extends GestureEventListeners(PolymerElement) {
@@ -109,7 +110,7 @@ export class ContactListItem extends GestureEventListeners(PolymerElement) {
   // @ts-ignore
   __editingShortTextInput: HTMLInputElement;
 
-  // @ts-ignore computedプロパティの引数エラーになるが理由が不明
+  // @ts-ignore computedプロパティの引数エラーになるが原因不明
   @computed('contact.first', 'contact.last')
   get __fullName(): string {
     return `${this.contact.first} ${this.contact.last}`;

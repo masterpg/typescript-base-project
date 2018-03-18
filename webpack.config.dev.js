@@ -4,6 +4,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 /**
  * ビルド結果の出力パス
@@ -40,9 +41,14 @@ module.exports = merge(baseConfig, {
     port: 5000,
     host: '0.0.0.0',
     disableHostCheck: true,
-    proxy: {
-      '/api/*': 'http://0.0.0.0:5001',
+    // historyApiFallbackの設定は以下URLを参照:
+    // https://github.com/webpack/docs/wiki/webpack-dev-server#the-historyapifallback-option
+    historyApiFallback: {
+      rewrites: [],
     },
+    // proxy: {
+    //   '/api/*': 'http://0.0.0.0:5001',
+    // },
     hot: true,
   },
   plugins: [
@@ -65,5 +71,11 @@ module.exports = merge(baseConfig, {
       inject: false,
       bundledScript: '<script type="text/javascript" src="test.bundle.js"></script>',
     }),
+    // `to: xxx`の`xxx`は`output.path`が基準になる
+    new CopyWebpackPlugin([
+      { from: 'node_modules/mocha/mocha.css', to: 'node_modules/mocha' },
+      { from: 'node_modules/mocha/mocha.js', to: 'node_modules/mocha' },
+      { from: 'node_modules/chai/chai.js', to: 'node_modules/chai' },
+    ]),
   ],
 });

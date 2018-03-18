@@ -7,6 +7,7 @@ const vfs = require('vinyl-fs');
 const shell = require('gulp-shell');
 const _ = require('lodash');
 const browserSync = require('browser-sync');
+historyApiFallback = require('connect-history-api-fallback')
 const replace = require('gulp-replace');
 
 //----------------------------------------------------------------------
@@ -78,6 +79,7 @@ gulp.task('browser-sync', () => {
     open: false,
     server: {
       baseDir: OUTPUT_PATH,
+      middleware: [historyApiFallback()],
     }
   });
 });
