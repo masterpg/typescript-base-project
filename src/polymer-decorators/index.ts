@@ -71,6 +71,7 @@ export interface PropertyOptions {
   readOnly?: boolean;
   computed?: string;
   observer?: string|((val: {}, old: {}) => void);
+  statePath?: string;
 }
 
 interface Reflect {
