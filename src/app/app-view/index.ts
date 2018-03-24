@@ -1,5 +1,3 @@
-const { customElement, property, query } = Polymer.decorators;
-
 import '@polymer/app-layout/app-drawer-layout/app-drawer-layout';
 import '@polymer/app-layout/app-drawer/app-drawer';
 import '@polymer/app-layout/app-header-layout/app-header-layout';
@@ -22,9 +20,11 @@ import './sample1-view';
 import './sample2-view';
 import './sample3-view';
 import * as sw from '../service-worker';
+import { AppAction, AppPolymerReduxMixin } from "../redux";
+import { customElement, property, query } from '../../polymer-decorators';
 
 @customElement('app-view')
-export class AppView extends GestureEventListeners(PolymerElement) {
+export class AppView extends GestureEventListeners(AppPolymerReduxMixin(PolymerElement)) {
 
   static get template() {
     return html`
@@ -92,6 +92,7 @@ export class AppView extends GestureEventListeners(PolymerElement) {
             <app-toolbar>
               <paper-icon-button icon="icons:menu" drawer-toggle></paper-icon-button>
               <div main-title>My App</div>
+              <div>[[__message]]</div>
             </app-toolbar>
           </app-header>
 
@@ -137,6 +138,9 @@ export class AppView extends GestureEventListeners(PolymerElement) {
   }
 
   __narrow: boolean = false;
+
+  @property({ statePath: 'message' })
+  __message: string = '';
 
   //--------------------------------------------------
   //  Elements

@@ -1,5 +1,3 @@
-const { customElement, property, computed, query, observe } = Polymer.decorators;
-
 import '@polymer/iron-image/iron-image';
 import '@polymer/iron-list/iron-list';
 import '@polymer/paper-button/paper-button';
@@ -11,9 +9,11 @@ import { html } from '@polymer/polymer/lib/utils/html-tag';
 
 import '../../../styles/base-styles';
 import * as api from '../../../api';
+import { AppPolymerReduxMixin } from "../../redux";
+import { customElement, property, computed, query, observe } from '../../../polymer-decorators';
 
 @customElement('contact-list')
-export class ContactList extends GestureEventListeners(PolymerElement) {
+export class ContactList extends GestureEventListeners(AppPolymerReduxMixin(PolymerElement)) {
 
   static get template() {
     return html`
@@ -34,7 +34,7 @@ export class ContactList extends GestureEventListeners(PolymerElement) {
 
 
 @customElement('contact-list-item')
-export class ContactListItem extends GestureEventListeners(PolymerElement) {
+export class ContactListItem extends GestureEventListeners(AppPolymerReduxMixin(PolymerElement)) {
 
   static get template() {
     return html`

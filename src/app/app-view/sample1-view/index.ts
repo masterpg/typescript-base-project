@@ -1,5 +1,3 @@
-const { customElement, query } = Polymer.decorators;
-
 import '@polymer/paper-button/paper-button';
 import '@polymer/polymer/polymer';
 import { Element as PolymerElement } from '@polymer/polymer/polymer-element';
@@ -9,9 +7,11 @@ import { html } from '@polymer/polymer/lib/utils/html-tag';
 import '../../../styles/base-styles';
 import './contact-list';
 import * as api from '../../../api';
+import { AppActions, AppPolymerReduxMixin } from "../../redux";
+import { customElement, property } from "../../../polymer-decorators";
 
 @customElement('sample1-view')
-export class Sample1View extends GestureEventListeners(PolymerElement) {
+export class Sample1View extends GestureEventListeners(AppPolymerReduxMixin(PolymerElement)) {
 
   static get template() {
     return html`
@@ -76,5 +76,7 @@ export class Sample1View extends GestureEventListeners(PolymerElement) {
   async __buttonOnClick(e) {
     const contacts = await api.fetchContacts();
     this.__contacts = contacts;
+
+    this.dispatch(AppActions.updateMessage('Hello World!'));
   }
 }
