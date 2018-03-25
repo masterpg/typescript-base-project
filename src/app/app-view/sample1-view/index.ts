@@ -4,7 +4,7 @@ import { html } from '@polymer/polymer/lib/utils/html-tag';
 
 import '../../../styles/base-styles';
 import './contact-list';
-import * as api from '../../../api';
+import * as api from '../../api';
 import { BaseUIElement } from "../../base-element";
 import { customElement, property } from "../../../polymer-decorators";
 
