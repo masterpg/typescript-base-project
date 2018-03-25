@@ -47,7 +47,7 @@ module.exports = merge(baseConfig, {
       bundledScript: '',
     }),
     new webpack.NormalModuleReplacementPlugin(
-      /config\/config\.dev\.ts/,
+      /app\/config\/config\.dev\.ts/,
       'config.prod.ts'
     ),
     new SWPrecacheWebpackPlugin({
