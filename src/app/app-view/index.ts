@@ -120,12 +120,18 @@ export class AppView extends BaseUIElement {
   __locationPath: string = '';
 
   __locationPathChanged(newValue: string, oldValue: string) {
+    const DEFAULT_PAGE = 'sample1-view';
     const locationData = new location.LocationData(window.location);
     const paths = location.split(locationData.path);
     if (paths.length === 0) {
-      this.__page = 'sample1-view';
+      this.__page = DEFAULT_PAGE;
     } else {
-      this.__page = paths[0];
+      const page = paths[0];
+      if (page === 'index.html') {
+        this.__page = DEFAULT_PAGE;
+      } else {
+        this.__page = page;
+      }
     }
 
     // Close a non-persistent drawer when the page & route are changed.

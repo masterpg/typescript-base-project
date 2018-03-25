@@ -35,7 +35,10 @@ $ bower install
 $ gulp serve
 ```
 
-起動したらブラウザで http://localhost:5000/index.html にアクセスすることで画面が表示されます。
+起動したらブラウザで下記URLにアクセスすることで各画面を確認できます。
+
+* アプリケーション画面: http://localhost:5000/index.html
+* 単体テスト実行画面: http://localhost:5000/test.html
 
 
 ## プロジェクトビルド
