@@ -1,14 +1,13 @@
 import '@polymer/paper-button/paper-button';
 import '@polymer/polymer/polymer';
-import { Element as PolymerElement } from '@polymer/polymer/polymer-element';
-import { GestureEventListeners, GestureEventListenersConstructor } from '@polymer/polymer/lib/mixins/gesture-event-listeners';
 import { html } from '@polymer/polymer/lib/utils/html-tag';
 
 import '../../../styles/base-styles';
-const { customElement, query } = Polymer.decorators;
+import { BaseUIElement } from "../../base-element";
+import { customElement } from '../../../polymer-decorators';
 
 @customElement('sample3-view')
-export class Sample3View extends GestureEventListeners(PolymerElement) {
+export class Sample3View extends BaseUIElement {
 
   static get template() {
     return html`

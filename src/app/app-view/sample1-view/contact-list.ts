@@ -3,17 +3,15 @@ import '@polymer/iron-list/iron-list';
 import '@polymer/paper-button/paper-button';
 import '@polymer/polymer/lib/elements/dom-if';
 import '@polymer/polymer/polymer';
-import { Element as PolymerElement } from '@polymer/polymer/polymer-element';
-import { GestureEventListeners, GestureEventListenersConstructor } from '@polymer/polymer/lib/mixins/gesture-event-listeners';
 import { html } from '@polymer/polymer/lib/utils/html-tag';
 
 import '../../../styles/base-styles';
 import * as api from '../../../api';
-import { AppPolymerReduxMixin } from "../../redux";
+import { BaseUIElement } from "../../base-element";
 import { customElement, property, computed, query, observe } from '../../../polymer-decorators';
 
 @customElement('contact-list')
-export class ContactList extends GestureEventListeners(AppPolymerReduxMixin(PolymerElement)) {
+export class ContactList extends BaseUIElement {
 
   static get template() {
     return html`
@@ -34,7 +32,7 @@ export class ContactList extends GestureEventListeners(AppPolymerReduxMixin(Poly
 
 
 @customElement('contact-list-item')
-export class ContactListItem extends GestureEventListeners(AppPolymerReduxMixin(PolymerElement)) {
+export class ContactListItem extends BaseUIElement {
 
   static get template() {
     return html`

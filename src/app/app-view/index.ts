@@ -8,9 +8,6 @@ import '@polymer/iron-location/iron-location';
 import '@polymer/iron-pages/iron-pages';
 import '@polymer/paper-button/paper-button';
 import '@polymer/paper-icon-button/paper-icon-button';
-import '@polymer/polymer/polymer';
-import { Element as PolymerElement } from '@polymer/polymer/polymer-element';
-import { GestureEventListeners, GestureEventListenersConstructor } from '@polymer/polymer/lib/mixins/gesture-event-listeners';
 import { html } from '@polymer/polymer/lib/utils/html-tag';
 import { location } from 'lived-js-front';
 
@@ -20,11 +17,11 @@ import './sample1-view';
 import './sample2-view';
 import './sample3-view';
 import * as sw from '../service-worker';
-import { AppAction, AppPolymerReduxMixin } from "../redux";
+import { BaseUIElement } from "../base-element";
 import { customElement, property, query } from '../../polymer-decorators';
 
 @customElement('app-view')
-export class AppView extends GestureEventListeners(AppPolymerReduxMixin(PolymerElement)) {
+export class AppView extends BaseUIElement {
 
   static get template() {
     return html`

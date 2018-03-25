@@ -1,9 +1,8 @@
 declare module 'polymer-redux/polymer-redux' {
 
   import * as Redux from 'redux';
-  import { Element as PolymerElement } from '@polymer/polymer/polymer-element';
 
-  interface PolymerReduxElement<S> extends PolymerElement {
+  interface ReduxElement<S> {
     /**
      * Dispatches an action to the Redux store.
      *
@@ -26,12 +25,12 @@ declare module 'polymer-redux/polymer-redux' {
     getState(): S;
   }
 
-  interface PolymerReduxElementConstructor<S> {
-    new(...args: any[]): PolymerReduxElement<S>;
+  interface ReduxElementConstructor<S> {
+    new(...args: any[]): ReduxElement<S>;
   }
 
   type PolymerReduxMixin<S> =
-    <T extends new (...args: any[]) => {}>(base: T) => T & PolymerReduxElementConstructor<S>;
+    <T extends new (...args: any[]) => {}>(base: T) => T & ReduxElementConstructor<S>;
 
   export default function PolymerRedux<S>(store: Redux.Store<S>): PolymerReduxMixin<S>;
 

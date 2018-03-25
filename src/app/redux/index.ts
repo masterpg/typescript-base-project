@@ -40,17 +40,18 @@ export namespace AppAction {
 }
 
 import { reducer } from './reducer';
-import { AppActions } from "./action";
 
 /**
  * アプリケーションの状態を保持するオブジェクトです。
  */
-export const store: Redux.Store<AppState> = Redux.createStore(reducer);
+export const AppStore: Redux.Store<AppState> = Redux.createStore(reducer);
 
 /**
  * PolymerエレメントにReduxの機能を組み込むためのMixinです。
  */
-export const AppPolymerReduxMixin: PolymerReduxMixin<AppState> = PolymerRedux(store);
+export const AppPolymerReduxMixin: PolymerReduxMixin<AppState> = PolymerRedux(AppStore);
+
+import { AppActions } from "./action";
 
 export {
   AppActions,

@@ -1,17 +1,15 @@
 import '@polymer/paper-button/paper-button';
 import '@polymer/polymer/polymer';
-import { Element as PolymerElement } from '@polymer/polymer/polymer-element';
-import { GestureEventListeners, GestureEventListenersConstructor } from '@polymer/polymer/lib/mixins/gesture-event-listeners';
 import { html } from '@polymer/polymer/lib/utils/html-tag';
 
 import '../../../styles/base-styles';
 import './contact-list';
 import * as api from '../../../api';
-import { AppActions, AppPolymerReduxMixin } from "../../redux";
+import { BaseUIElement } from "../../base-element";
 import { customElement, property } from "../../../polymer-decorators";
 
 @customElement('sample1-view')
-export class Sample1View extends GestureEventListeners(AppPolymerReduxMixin(PolymerElement)) {
+export class Sample1View extends BaseUIElement {
 
   static get template() {
     return html`
@@ -77,6 +75,6 @@ export class Sample1View extends GestureEventListeners(AppPolymerReduxMixin(Poly
     const contacts = await api.fetchContacts();
     this.__contacts = contacts;
 
-    this.dispatch(AppActions.updateMessage('Hello World!'));
+    this.actions.updateMessage('Hello World!');
   }
 }
