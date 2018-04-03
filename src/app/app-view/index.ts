@@ -150,7 +150,6 @@ export class AppView extends BaseUIElement {
   //--------------------------------------------------
 
   @query('#drawer')
-  // @ts-ignore
   __drawer: HTMLElement | any;
 
   //----------------------------------------------------------------------
@@ -171,7 +170,7 @@ export class AppView extends BaseUIElement {
   //
   //----------------------------------------------------------------------
 
-  __swOnStateChange(info) {
+  __swOnStateChange(info: sw.StateChangeInfo) {
     console.log(info);
   }
 }

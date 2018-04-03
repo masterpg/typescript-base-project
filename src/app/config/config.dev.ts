@@ -6,5 +6,5 @@ export class CurrentConfig implements Config {
     protocol: 'http',
     host: '0.0.0.0',
     port: 5001,
-  }
+  };
 }

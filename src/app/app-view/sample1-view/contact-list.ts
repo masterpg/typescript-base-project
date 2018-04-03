@@ -105,7 +105,6 @@ export class ContactListItem extends BaseUIElement {
   __editingShortText: boolean = false;
 
   @query('#editingShortTextInput')
-  // @ts-ignore
   __editingShortTextInput: HTMLInputElement;
 
   // @ts-ignore computedプロパティの引数エラーになるが原因不明
@@ -121,7 +120,6 @@ export class ContactListItem extends BaseUIElement {
   //----------------------------------------------------------------------
 
   @property()
-  // @ts-ignore
   contact: api.Contact;
 
   //----------------------------------------------------------------------

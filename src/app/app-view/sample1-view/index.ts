@@ -71,7 +71,7 @@ export class Sample1View extends BaseUIElement {
   //
   //----------------------------------------------------------------------
 
-  async __buttonOnClick(e) {
+  async __buttonOnClick(e: any) {
     const contacts = await api.fetchContacts();
     this.__contacts = contacts;
 

@@ -55,4 +55,4 @@ import { AppActions } from "./action";
 
 export {
   AppActions,
-}
+};

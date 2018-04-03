@@ -13,7 +13,8 @@ export function reducer(state: AppState, action: Redux.Action): AppState {
   if (!state) return __initialState;
 
   // アクションに対する処理を行うメソッドを取得
-  const actionMethod = <ActionMethod>actions[action.type];
+  const actionType = <AppAction.Types>action.type;
+  const actionMethod = <ActionMethod>actions[actionType];
   if (!actionMethod) {
     console.error(`A method associated with the type of action '${action.type}' was not found.`);
     return __initialState;
