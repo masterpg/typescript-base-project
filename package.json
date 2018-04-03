@@ -57,6 +57,7 @@
     "@webcomponents/webcomponentsjs": "^1.1.0",
     "axios": "^0.18.0",
     "clean-webpack-plugin": "^0.1.19",
+    "es6-promise": "^4.2.4",
     "lived-js-front": "https://github.com/masterpg/lived-js-front.git",
     "polymer-redux": "https://github.com/tur-nr/polymer-redux.git#polymer-3",
     "redux": "^3.7.2",
