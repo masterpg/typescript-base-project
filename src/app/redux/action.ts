@@ -1,12 +1,12 @@
-import { AppAction, AppStore } from "./index";
+import { AppAction, AppStore } from './index';
 
 export namespace AppActions {
 
   export function updateMessage(message: string): void {
-    AppStore.dispatch(<AppAction.DataSets.UpdateMessage>{
+    AppStore.dispatch({
       type: AppAction.Types.updateMessage,
-      message: message,
-    });
+      message,
+    } as AppAction.DataSets.UpdateMessage);
   }
 
 }

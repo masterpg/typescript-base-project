@@ -1,4 +1,4 @@
-import { Config, Environment } from "./";
+import { Config, Environment } from './';
 
 export class CurrentConfig implements Config {
   environment = Environment.dev;

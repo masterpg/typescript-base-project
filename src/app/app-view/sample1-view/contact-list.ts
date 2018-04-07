@@ -7,7 +7,7 @@ import { html } from '@polymer/polymer/lib/utils/html-tag';
 
 import '../../../styles/base-styles';
 import * as api from '../../api';
-import { BaseUIElement } from "../../base-element";
+import { BaseUIElement } from '../../base-element';
 import { customElement, property, computed, query, observe } from '../../../polymer-decorators';
 
 @customElement('contact-list')
@@ -141,6 +141,7 @@ export class ContactListItem extends BaseUIElement {
 
   @observe('contact.shortText')
   __contactOnChange(newValue: string) {
+    // tslint:disable-next-line
     console.log(`contact.shortText changed to ${newValue}`);
   }
 }

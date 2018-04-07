@@ -44,13 +44,13 @@ export function addStateChangeListener(listner: StateChangeLister): void {
 export function init(): void {
   if (!('serviceWorker' in navigator)) return;
 
-  const base = <HTMLBaseElement>window.document.querySelector('html > head > base');
+  const base = window.document.querySelector('html > head > base') as HTMLBaseElement;
   if (!base) {
     console.error('<base> element not found.');
     return;
   }
 
-  navigator.serviceWorker.register('service-worker.js', { scope: base.href }).then(reg => {
+  navigator.serviceWorker.register('service-worker.js', { scope: base.href }).then((reg) => {
     // service-worker.jsに変更があった際のハンドラ
     reg.onupdatefound = () => {
       const installingServiceWorker = reg.installing;

@@ -1,5 +1,5 @@
 import * as Redux from 'redux';
-import { default as PolymerRedux, PolymerReduxMixin } from "polymer-redux/polymer-redux";
+import { default as PolymerRedux, PolymerReduxMixin } from 'polymer-redux/polymer-redux';
 
 /**
  * アプリケーションの状態を表現するクラスです。
@@ -51,7 +51,7 @@ export const AppStore: Redux.Store<AppState> = Redux.createStore(reducer);
  */
 export const AppPolymerReduxMixin: PolymerReduxMixin<AppState> = PolymerRedux(AppStore);
 
-import { AppActions } from "./action";
+import { AppActions } from './action';
 
 export {
   AppActions,

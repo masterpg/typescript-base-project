@@ -17,7 +17,7 @@ import './sample1-view';
 import './sample2-view';
 import './sample3-view';
 import * as sw from '../service-worker';
-import { BaseUIElement } from "../base-element";
+import { BaseUIElement } from '../base-element';
 import { customElement, property, query } from '../../polymer-decorators';
 
 @customElement('app-view')
@@ -171,6 +171,7 @@ export class AppView extends BaseUIElement {
   //----------------------------------------------------------------------
 
   __swOnStateChange(info: sw.StateChangeInfo) {
+    // tslint:disable-next-line
     console.log(info);
   }
 }

@@ -3,7 +3,7 @@ import '@polymer/polymer/polymer';
 import * as view from './index.html';
 
 import '../../../styles/base-styles';
-import { BaseUIElement } from "../../base-element";
+import { BaseUIElement } from '../../base-element';
 import { customElement } from '../../../polymer-decorators';
 
 @customElement('sample2-view')

@@ -1,5 +1,5 @@
 import * as Redux from 'redux';
-import { AppAction, AppState } from "./index";
+import { AppAction, AppState } from './index';
 
 type ActionMethod = (state: AppState, action: Redux.Action) => AppState;
 
@@ -13,8 +13,8 @@ export function reducer(state: AppState, action: Redux.Action): AppState {
   if (!state) return __initialState;
 
   // アクションに対する処理を行うメソッドを取得
-  const actionType = <AppAction.Types>action.type;
-  const actionMethod = <ActionMethod>actions[actionType];
+  const actionType = action.type as AppAction.Types;
+  const actionMethod = actions[actionType] as ActionMethod;
   if (!actionMethod) {
     console.error(`A method associated with the type of action '${action.type}' was not found.`);
     return __initialState;
@@ -26,7 +26,7 @@ export function reducer(state: AppState, action: Redux.Action): AppState {
 
 const actions = {
   [AppAction.Types.updateMessage]: (state: AppState, action: AppAction.DataSets.UpdateMessage) => {
-    return <AppState>Object.assign(new AppState(state), { message: action.message });
+    return Object.assign(new AppState(state), { message: action.message }) as AppState;
   },
 };
 

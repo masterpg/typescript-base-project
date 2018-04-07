@@ -44,12 +44,12 @@ export async function fetchPosts(id?: number): Promise<Post[]> {
 export async function fetchContacts(): Promise<Contact[]> {
   const url = `${destinationHost}/api/contacts`;
   const response = await axios.get(url, {});
-  return <Contact[]>response.data;
+  return response.data as Contact[];
 }
 
 export async function fetchContactById(id: string): Promise<Contact> {
   let url = `${destinationHost}/api/contacts`;
   url = `${url}/${id}`;
   const response = await axios.get(url, {});
-  return <Contact>response.data;
+  return response.data as Contact;
 }

@@ -5,8 +5,8 @@ import { html } from '@polymer/polymer/lib/utils/html-tag';
 import '../../../styles/base-styles';
 import './contact-list';
 import * as api from '../../api';
-import { BaseUIElement } from "../../base-element";
-import { customElement, property } from "../../../polymer-decorators";
+import { BaseUIElement } from '../../base-element';
+import { customElement, property } from '../../../polymer-decorators';
 
 @customElement('sample1-view')
 export class Sample1View extends BaseUIElement {
